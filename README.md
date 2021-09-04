@@ -6,3 +6,5 @@ Não é nada seguro, mas é funcional! Haha
 ```sh
 python3 main.py
 ```
+## Metas:
+- Melhorar tudo

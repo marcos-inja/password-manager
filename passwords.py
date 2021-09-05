@@ -7,7 +7,7 @@ def clear(): return os.system('clear')
 
 
 # Defino a senha
-MASTER_PASSWORD = '123456'
+MASTER_PASSWORD = '1'
 
 password = input("Insira sua senha: ")
 if password != MASTER_PASSWORD:
@@ -55,7 +55,7 @@ def get_password(service):
         print('Serviço não encontrado')
     else:
         for user in cursor.fetchall():
-            print(user)
+            print(f'Usuario: @{user[0]}\nSenha: {user[1]}')
 
 
 # Função que insere um novo serviço
@@ -73,7 +73,7 @@ def show_service():
         SELECT service FROM users;
     ''')
     for service in cursor.fetchall():
-        print(service)
+        print(service[0])
 
 
 # Função que deleta um serviço
@@ -104,7 +104,7 @@ while True:
         clear()
         print('Inserir nova senha')
         service = input('Qual o nome do serviço? ')
-        username = input('Qual o nome de usúario? ')
+        username = input('Qual o nome de usúario? (coloque sem @)')
         password = input('Qual a senha? ')
         insert_password(service, username, password)
         print(f'{service} foi inserido com sucesso!')

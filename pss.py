@@ -1,3 +1,10 @@
+from cryptocode import encrypt, decrypt
+import hashlib
+from os.path import isfile
+import csv
+import pandas as pd
+import argparse
+import sys, os
 PARA_HELP = """
   1 - criar senha na primeira execução:  pss new
 | 2 - cadatrar uma nova senha:           pss a
@@ -6,80 +13,73 @@ PARA_HELP = """
 | 5 - recuperar por hash ou nome:        pss ss -h <hash> ou -n <nome>
 """
 
-import sys
-import argparse
-import pandas as pd
-import csv
-from os.path import isfile
-import hashlib
-from cryptocode import encrypt, decrypt
-
 
 class Metodos:
     def __init__(self, args):
+        home_folder = os.getenv('HOME')
         self.args = args
-    
+        self.path_passwords = f'{home_folder}/.senhas_servicos.csv'
+        self.master_password = f'{home_folder}/.master_ps.txt'
+
 
     def new(self):
-        if not isfile('ps.txt'):
+        if not isfile(self.master_password):
             pss = input("pass >> ")
-            with open('ps.txt', 'w') as ps:
+            with open(self.master_password, 'w') as ps:
                 r = hashlib.md5(pss.encode())
                 ps.write(r.hexdigest())
 
-
     def cadastra_senha(self):
-        if isfile('ps.txt'):
-            with open('ps.txt', 'r') as f:
+        if isfile(self.master_password):
+            with open(self.master_password, 'r') as f:
                 pss = input("pass >> ")
                 r = hashlib.md5(pss.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
-                
+
                 if ps == ps2:
                     nome = input("Nome >> ")
                     senha = input("Senha >> ")
-                    if not isfile('senhas.csv'):
-                        with open('senhas.csv', 'w') as f:
+                    if not isfile(self.path_passwords):
+                        with open(self.path_passwords, 'w') as f:
                             w = csv.writer(f)
                             w.writerow(['Nome', 'Senha'])
 
-                    with open('senhas.csv', 'a') as cu:  
+                    with open(self.path_passwords, 'a') as cu:
                         escrever = csv.writer(cu)
                         escrever.writerow([nome, encrypt(senha, pss)])
         else:
             print("cadastre uma senha usando pss new")
 
-
     def lista_senhas(self):
-        if isfile("senhas.csv"):
-            with open('ps.txt', 'r') as f:
+        if isfile(self.path_passwords):
+            with open(self.master_password, 'r') as f:
                 pss = input("pass >> ")
                 r = hashlib.md5(pss.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
                 if ps == ps2:
-                    df = pd.read_csv('senhas.csv')
+                    df = pd.read_csv(self.path_passwords)
                     for _, row in df.iterrows():
-                        print(f"Nome: {row['Nome']} | Senha: {decrypt(row['Senha'], pss)}")
+                        print(
+                            f"Nome: {row['Nome']} | Senha: {decrypt(row['Senha'], pss)}")
         else:
             print("Nada cadastrado ainda!")
 
-
     def remove(self):
-        if isfile('senhas.csv'):
+        if isfile(self.path_passwords):
             senha = input("pass >> ")
-            with open('ps.txt', 'r') as f:
+            with open(self.master_password, 'r') as f:
                 r = hashlib.md5(senha.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
-                
-                if ps == ps2:
-                    with open('senhas.csv', 'r') as f:
-                        linhas = csv.reader(f)
-                        lst = list(linhas) 
 
-                    with open('senhas.csv', 'w') as cu:   
+                if ps == ps2:
+                    with open(self.path_passwords, 'r') as f:
+                        linhas = csv.reader(f)
+                        lst = list(linhas)
+
+                    with open(self.path_passwords, 'w') as cu:
                         writer = csv.writer(cu)
                         ident = None
                         for line in lst:
@@ -93,19 +93,19 @@ class Metodos:
         else:
             print("nada cadastrado!")
 
-
     def encotra_por_chave(self):
-        if isfile("senhas.csv"):
-            with open('ps.txt', 'r') as f:
+        if isfile(self.path_passwords):
+            with open(self.master_password, 'r') as f:
                 pss = input("pass >> ")
                 r = hashlib.md5(pss.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
                 if ps == ps2:
-                    df = pd.read_csv('senhas.csv')
+                    df = pd.read_csv(self.path_passwords)
                     for _, row in df.iterrows():
                         if self.args.nome == row['Nome']:
-                            print(f"Nome: {row['Nome']} | Senha: {decrypt(row['Senha'], pss)}")
+                            print(
+                                f"Nome: {row['Nome']} | Senha: {decrypt(row['Senha'], pss)}")
         else:
             print("Nada cadastrado ainda!")
 
@@ -113,8 +113,8 @@ class Metodos:
 def main():
     parser = argparse.ArgumentParser(description='gerenciador hehe')
     parser.add_argument('chave', help=PARA_HELP)
-    parser.add_argument('-n', '--nome', required = False)
-    parser.add_argument('-ha', '--hash', required = False)
+    parser.add_argument('-n', '--nome', required=False)
+    parser.add_argument('-ha', '--hash', required=False)
     args = parser.parse_args()
 
     funcoes = Metodos(args)
@@ -137,10 +137,10 @@ def main():
     # Recupera uma unica senha
     elif args.chave == 'ss':
         funcoes.encotra_por_chave()
-    
+
     else:
         sys.exit("Flag not find!")
-        
+
 
 if __name__ == '__main__':
     sys.exit(main())

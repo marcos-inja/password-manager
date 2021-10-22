@@ -23,7 +23,7 @@ Saia e `source .zshrc` ou `source .bashrc`
     ```
 - Para cadastrar um novo serviço:
     ```sh
-    python3 $pss. a
+    python3 $pss a
     ```
 - Para listar todos os serviços:
     ```sh

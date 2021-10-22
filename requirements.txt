@@ -1,0 +1,2 @@
+cryptocode==0.1
+pandas==1.1.5

@@ -3,3 +3,4 @@
 *.csv
 ps.txt
 aaaa.*
+__pycache__

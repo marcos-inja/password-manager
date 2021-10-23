@@ -16,6 +16,10 @@ Dentro do diretorio `gerenciador-de-senhas` execute `pwd` para pegar o caminho c
 ```sh
 export pss=<diretorio_pego_com_pwd>/pss.py
 ```
+- Exemplo:
+![image](https://user-images.githubusercontent.com/76446913/138572625-baf6852d-9da1-4d27-b627-cfad5ff82148.png)
+
+
 Saia e `source .zshrc` ou `source .bashrc`
 - Devemos criar uma senha:
     ```sh

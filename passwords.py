@@ -4,13 +4,15 @@ from os.path import isfile
 import csv
 import pandas as pd
 import os
+import pathlib
 
 class Passwords:
     def __init__(self, args):
         home_folder = os.getenv('HOME')
         self.args = args
-        self.path_passwords = f'{home_folder}/.senhas_servicos.csv'
-        self.master_password = f'{home_folder}/.master_ps.txt'
+        pathlib.Path(f'{home_folder}/.pss').mkdir(exist_ok=True)
+        self.path_passwords = f'{home_folder}/.pss/senhas_servicos.csv'
+        self.master_password = f'{home_folder}/.pss/master_ps.txt'
 
 
     def new(self):
@@ -30,15 +32,16 @@ class Passwords:
 
                 if ps == ps2:
                     nome = input("Nome >> ")
+                    usuario = input("User >> ")
                     senha = input("Senha >> ")
                     if not isfile(self.path_passwords):
                         with open(self.path_passwords, 'w') as f:
                             w = csv.writer(f)
-                            w.writerow(['Nome', 'Senha'])
+                            w.writerow(['Nome', 'User', 'Senha'])
 
                     with open(self.path_passwords, 'a') as cu:
                         escrever = csv.writer(cu)
-                        escrever.writerow([nome, encrypt(senha, pss)])
+                        escrever.writerow([nome, usuario, encrypt(senha, pss)])
         else:
             print("cadastre uma senha usando pss new")
 
@@ -53,7 +56,7 @@ class Passwords:
                     df = pd.read_csv(self.path_passwords)
                     for _, row in df.iterrows():
                         print(
-                            f"Nome: {row['Nome']} | Senha: {decrypt(row['Senha'], pss)}")
+                            f"Nome: {row['Nome']} | Usuario: {row['User']} | Senha: {decrypt(row['Senha'], pss)}")
         else:
             print("Nada cadastrado ainda!")
 
@@ -96,6 +99,6 @@ class Passwords:
                     for _, row in df.iterrows():
                         if self.args.nome == row['Nome']:
                             print(
-                                f"Nome: {row['Nome']} | Senha: {decrypt(row['Senha'], pss)}")
+                                f"Nome: {row['Nome']} | Usuario: {row['User']} | Senha: {decrypt(row['Senha'], pss)}")
         else:
             print("Nada cadastrado ainda!")

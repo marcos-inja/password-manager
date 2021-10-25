@@ -27,22 +27,22 @@ def main():
 
     # Cadastra nova senha
     elif args.chave == 'a':
-        funcoes.cadastra_senha()
+        funcoes.run(funcoes.cadastra_senha)
 
     # Lista senhas salvas
     elif args.chave == 'ls':
-        funcoes.lista_senhas()
+        funcoes.run(funcoes.lista_senhas, 'Nada cadastrado ainda!')
 
     # Remove uma senha por palavra chave
     elif args.chave == 'r':
-        funcoes.remove()
+        funcoes.run(funcoes.remove, 'Nada cadastrado ainda!')
 
     # Recupera uma unica senha
     elif args.chave == 'ss':
-        funcoes.encotra_por_chave()
+        funcoes.run(funcoes.encotra_por_chave, 'Nada cadastrado ainda!')
 
     else:
-        sys.exit("Flag not find!")
+        sys.exit('Flag not find!')
 
 
 if __name__ == '__main__':

@@ -17,54 +17,54 @@ class Passwords:
 
     def new(self):
         if not isfile(self.master_password):
-            pss = input("pass >> ")
+            password = input("pass >> ")
             with open(self.master_password, 'w') as ps:
-                r = hashlib.md5(pss.encode())
+                r = hashlib.md5(password.encode())
                 ps.write(r.hexdigest())
 
     def cadastra_senha(self):
         if isfile(self.master_password):
             with open(self.master_password, 'r') as f:
-                pss = input("pass >> ")
-                r = hashlib.md5(pss.encode())
+                password = input("pass >> ")
+                r = hashlib.md5(password.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
 
                 if ps == ps2:
-                    nome = input("Nome >> ")
-                    usuario = input("User >> ")
-                    senha = input("Senha >> ")
+                    name_service = input("Nome >> ")
+                    user_service = input("User >> ")
+                    pass_service = input("Senha >> ")
                     if not isfile(self.path_passwords):
                         with open(self.path_passwords, 'w') as f:
                             w = csv.writer(f)
                             w.writerow(['Nome', 'User', 'Senha'])
 
-                    with open(self.path_passwords, 'a') as cu:
-                        escrever = csv.writer(cu)
-                        escrever.writerow([nome, usuario, encrypt(senha, pss)])
+                    with open(self.path_passwords, 'a') as ps:
+                        escrever = csv.writer(ps)
+                        escrever.writerow([name_service, user_service, encrypt(pass_service, password)])
         else:
             print("cadastre uma senha usando pss new")
 
     def lista_senhas(self):
         if isfile(self.path_passwords):
             with open(self.master_password, 'r') as f:
-                pss = input("pass >> ")
-                r = hashlib.md5(pss.encode())
+                password = input("pass >> ")
+                r = hashlib.md5(password.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
                 if ps == ps2:
                     df = pd.read_csv(self.path_passwords)
                     for _, row in df.iterrows():
                         print(
-                            f"Nome: {row['Nome']} | Usuario: {row['User']} | Senha: {decrypt(row['Senha'], pss)}")
+                            f"Nome: {row['Nome']} | Usuario: {row['User']} | Senha: {decrypt(row['Senha'], password)}")
         else:
             print("Nada cadastrado ainda!")
 
     def remove(self):
         if isfile(self.path_passwords):
-            senha = input("pass >> ")
+            password = input("pass >> ")
             with open(self.master_password, 'r') as f:
-                r = hashlib.md5(senha.encode())
+                r = hashlib.md5(password.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
 
@@ -73,8 +73,8 @@ class Passwords:
                         linhas = csv.reader(f)
                         lst = list(linhas)
 
-                    with open(self.path_passwords, 'w') as cu:
-                        writer = csv.writer(cu)
+                    with open(self.path_passwords, 'w') as f:
+                        writer = csv.writer(f)
                         ident = None
                         for line in lst:
                             nome, senha = line
@@ -85,13 +85,13 @@ class Passwords:
                             if ident != nome:
                                 writer.writerow(line)
         else:
-            print("nada cadastrado!")
+            print("Nada cadastrado ainda!")
 
     def encotra_por_chave(self):
         if isfile(self.path_passwords):
             with open(self.master_password, 'r') as f:
-                pss = input("pass >> ")
-                r = hashlib.md5(pss.encode())
+                password = input("pass >> ")
+                r = hashlib.md5(password.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
                 if ps == ps2:
@@ -99,6 +99,6 @@ class Passwords:
                     for _, row in df.iterrows():
                         if self.args.nome == row['Nome']:
                             print(
-                                f"Nome: {row['Nome']} | Usuario: {row['User']} | Senha: {decrypt(row['Senha'], pss)}")
+                                f"Nome: {row['Nome']} | Usuario: {row['User']} | Senha: {decrypt(row['Senha'], password)}")
         else:
             print("Nada cadastrado ainda!")

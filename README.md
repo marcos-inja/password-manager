@@ -68,4 +68,4 @@ python3 pss.py new
     ```
     > Remova o <> antes de executar
 
-Para editar, simplesmente apague o serviço que tem algo errado e re-cadastre, é bem mais simples hehe.
+Para editar, simplesmente apague o serviço que tem algo errado e cadastre novamente, é bem mais simples hehe.

@@ -10,9 +10,6 @@ HELP = """
 [ 5 - recuperar por hash ou nome:        pss ss -h <hash> ou -n <nome>  ]
 """
 
-
-
-
 def main():
     parser = argparse.ArgumentParser(description='gerenciador hehe')
     parser.add_argument('chave', help=HELP)
@@ -31,15 +28,15 @@ def main():
 
     # Lista senhas salvas
     elif args.chave == 'ls':
-        funcoes.run(funcoes.lista_senhas, 'Nada cadastrado ainda!')
+        funcoes.run(funcoes.lista_senhas, 'Nothing registered yet')
 
     # Remove uma senha por palavra chave
     elif args.chave == 'r':
-        funcoes.run(funcoes.remove, 'Nada cadastrado ainda!')
+        funcoes.run(funcoes.remove, 'Nothing registered yet')
 
     # Recupera uma unica senha
     elif args.chave == 'ss':
-        funcoes.run(funcoes.encotra_por_chave, 'Nada cadastrado ainda!')
+        funcoes.run(funcoes.encotra_por_chave, 'Nothing registered yet')
 
     else:
         sys.exit('Flag not find!')

@@ -15,7 +15,7 @@ class Passwords:
         self.path_passwords = f'{home_folder}/.pss/senhas_servicos.csv'
         self.master_password = f'{home_folder}/.pss/master_ps.txt'
 
-    def run(self, function, msg='Cadastre uma senha usando $pss new'):
+    def run(self, function, msg='Register a password using $pss new'):
         if isfile(self.master_password):
             with open(self.master_password, 'r') as f:
                 password = input('pass >> ')

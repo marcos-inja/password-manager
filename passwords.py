@@ -34,7 +34,7 @@ class Passwords:
                 r = hashlib.md5(password.encode())
                 ps.write(r.hexdigest())
 
-    def cadastra_senha(self, password):
+    def register(self, password):
         name_service = input('service >> ')
         user_service = input('user >> ')
         pass_service = input('password >> ')
@@ -48,7 +48,7 @@ class Passwords:
             escrever.writerow([name_service, user_service,
                               encrypt(pass_service, password)])
 
-    def lista_senhas(self, password):
+    def list_passwords(self, password):
         df = pd.read_csv(self.path_passwords)
         for _, row in df.iterrows():
             print(
@@ -66,16 +66,16 @@ class Passwords:
             for line in lst:
                 name, _, _ = line
 
-                if name == self.args.nome:
+                if name == self.args.name:
                     ident = name
 
                 if ident != name:
                     writer.writerow(line)
 
-    def encotra_por_chave(self, password):
+    def find_by_key(self, password):
         df = pd.read_csv(self.path_passwords)
         for _, row in df.iterrows():
-            if self.args.nome == row['Name']:
+            if self.args.name == row['Name']:
                 print(
                     f"Name: {row['Name']} | User: {row['User']} | Password: {decrypt(row['Pass'], password)}"
                 )

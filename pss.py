@@ -24,11 +24,11 @@ def main():
 
     # Cadastra nova senha
     elif args.key == 'a':
-        passwords.run(passwords.cadastra_senha)
+        passwords.run(passwords.register)
 
     # Lista senhas salvas
     elif args.key == 'ls':
-        passwords.run(passwords.lista_senhas, 'Nothing registered yet')
+        passwords.run(passwords.list_passwords, 'Nothing registered yet')
 
     # Remove uma senha por palavra chave
     elif args.key == 'r':
@@ -36,7 +36,7 @@ def main():
 
     # Recupera uma unica senha
     elif args.key == 'ss':
-        passwords.run(passwords.encotra_por_chave, 'Nothing registered yet')
+        passwords.run(passwords.find_by_key, 'Nothing registered yet')
 
     else:
         sys.exit('Flag not find!')

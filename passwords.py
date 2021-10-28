@@ -12,7 +12,7 @@ class Passwords:
         home_folder = os.getenv('HOME')
         self.args = args
         pathlib.Path(f'{home_folder}/.pss').mkdir(exist_ok=True)
-        self.path_passwords = f'{home_folder}/.pss/senhas_servicos.csv'
+        self.path_passwords = f'{home_folder}/.pss/service_ps.csv'
         self.master_password = f'{home_folder}/.pss/master_ps.txt'
 
     def run(self, function, msg='Register a password using $pss new'):

@@ -52,7 +52,7 @@ class Passwords:
         df = pd.read_csv(self.path_passwords)
         for _, row in df.iterrows():
             print(
-                f"Nome: {row['Name']} | Usuario: {row['User']} | Senha: {decrypt(row['Pass'], password)}"
+                f"Name: {row['Name']} | User: {row['User']} | Password: {decrypt(row['Pass'], password)}"
             )
 
     def remove(self, password):
@@ -77,5 +77,5 @@ class Passwords:
         for _, row in df.iterrows():
             if self.args.nome == row['Name']:
                 print(
-                    f"Nome: {row['Name']} | Usuario: {row['User']} | Senha: {decrypt(row['Pass'], password)}"
+                    f"Name: {row['Name']} | User: {row['User']} | Password: {decrypt(row['Pass'], password)}"
                 )

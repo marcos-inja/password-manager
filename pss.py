@@ -6,7 +6,7 @@ HELP = """
 [ 1 - criar senha na primeira execução:  pss new                         ]
 [ 2 - cadatrar uma nova senha:           pss add                         ]
 [ 3 - listar serviços salvos:            pss ls                          ]
-[ 4 - remover senha salva:               pss rem -ha <hash> or -n <name> ]
+[ 4 - remover senha salva:               pss r -ha <hash> or -n <name> ]
 [ 5 - recuperar por hash ou nome:        pss l -h <hash> or -n <name>    ]
 """
 

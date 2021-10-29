@@ -3,11 +3,11 @@ import argparse
 import sys
 
 HELP = """
-[ 1 - criar senha na primeira execução:  pss new                        ]
-[ 2 - cadatrar uma nova senha:           pss a                          ]
-[ 3 - listar serviços salvos:            pss ls                         ]
-[ 4 - remover senha salva:               pss r -ha <hash> or -n <name>  ]
-[ 5 - recuperar por hash ou nome:        pss ss -h <hash> or -n <name>  ]
+[ 1 - criar senha na primeira execução:  pss new                         ]
+[ 2 - cadatrar uma nova senha:           pss add                         ]
+[ 3 - listar serviços salvos:            pss ls                          ]
+[ 4 - remover senha salva:               pss rem -ha <hash> or -n <name> ]
+[ 5 - recuperar por hash ou nome:        pss l -h <hash> or -n <name>    ]
 """
 
 def main():
@@ -31,7 +31,7 @@ def main():
         passwords.run(passwords.list_passwords, 'Nothing registered yet')
 
     # Remove uma senha por palavra chave
-    elif args.key == 'rem':
+    elif args.key == 'r':
         passwords.run(passwords.remove, 'Nothing registered yet')
 
     # Recupera uma unica senha

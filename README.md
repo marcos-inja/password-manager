@@ -27,7 +27,7 @@ Saia e `source .zshrc` ou `source .bashrc`
     ```
 - Para cadastrar um novo serviço:
     ```sh
-    python3 $pss a
+    python3 $pss add
     ```
 - Para listar todos os serviços:
     ```sh
@@ -35,7 +35,7 @@ Saia e `source .zshrc` ou `source .bashrc`
     ```
 - Para exibir um serviço especifico:
     ```sh
-    python3 $pss ss -n <nome_do_serviço>
+    python3 $pss l -n <nome_do_serviço>
     ```
     > Remova o <> antes de executar
 - Para remover um serviço:
@@ -51,7 +51,7 @@ python3 pss.py new
 ```
 - Para cadastrar um novo serviço:
     ```sh
-    python3 pss.py a
+    python3 pss.py add
     ```
 - Para listar todos os serviços:
     ```sh
@@ -59,7 +59,7 @@ python3 pss.py new
     ```
 - Para exibir um serviço especifico:
     ```sh
-    python3 pss.py ss -n <nome_do_serviço>
+    python3 pss.py l -n <nome_do_serviço>
     ```
     > Remova o <> antes de executar
 - Para remover um serviço:

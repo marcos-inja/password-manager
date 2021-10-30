@@ -3,29 +3,30 @@ import hashlib
 from os.path import isfile
 import csv
 import pandas as pd
-import os
+import os, sys
 import pathlib
 
 
 class Passwords:
     def __init__(self, args):
         home_folder = os.getenv('HOME')
-        self.args = args
         pathlib.Path(f'{home_folder}/.pss').mkdir(exist_ok=True)
+        self.args = args
         self.path_passwords = f'{home_folder}/.pss/service_ps.csv'
         self.master_password = f'{home_folder}/.pss/master_ps.txt'
 
-    def run(self, function, msg='Register a password using $pss new'):
+    def _run(self, msg='Register a password using $pss new'):
         if isfile(self.master_password):
             with open(self.master_password, 'r') as f:
                 password = input('pass >> ')
                 r = hashlib.md5(password.encode())
                 ps = f.read()
                 ps2 = r.hexdigest()
-                if ps == ps2:
-                    function(password)
+                if ps != ps2:
+                    sys.exit('invalid password')
+                return password
         else:
-            print(msg)
+            sys.exit(msg)
 
     def new(self):
         if not isfile(self.master_password):
@@ -34,7 +35,8 @@ class Passwords:
                 r = hashlib.md5(password.encode())
                 ps.write(r.hexdigest())
 
-    def register(self, password):
+    def register(self):
+        password = self._run('Nothing registered yet')
         name_service = input('service >> ')
         user_service = input('user >> ')
         pass_service = input('password >> ')
@@ -48,14 +50,16 @@ class Passwords:
             escrever.writerow([name_service, user_service,
                               encrypt(pass_service, password)])
 
-    def list_passwords(self, password):
+    def show_all(self):
+        password = self._run('Nothing registered yet')
         df = pd.read_csv(self.path_passwords)
         for _, row in df.iterrows():
             print(
                 f"Name: {row['Name']} | User: {row['User']} | Password: {decrypt(row['Pass'], password)}"
             )
 
-    def remove(self, password):
+    def remove(self):
+        _ = self._run('Nothing registered yet')
         with open(self.path_passwords, 'r') as f:
             linhas = csv.reader(f)
             lst = list(linhas)
@@ -72,7 +76,8 @@ class Passwords:
                 if ident != name:
                     writer.writerow(line)
 
-    def find_by_key(self, password):
+    def find_by_key(self):
+        password = self._run('Nothing registered yet')
         df = pd.read_csv(self.path_passwords)
         for _, row in df.iterrows():
             if self.args.name == row['Name']:

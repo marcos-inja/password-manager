@@ -50,6 +50,9 @@ class Passwords:
             writer.writerow([name, user, encrypt(pass_service, password)])
 
     def show_all(self):
+        """Mostra todos os serviços salvos
+        Saída: Name: name | User: user | Password: password 
+        """
         password = self._run('Nothing registered yet')
         df = pd.read_csv(self.path_passwords)
         for _, row in df.iterrows():
@@ -67,7 +70,8 @@ class Passwords:
             writer = csv.writer(f)
             ident = None
             for row in rows_list:
-                name = row['Name']
+                # Pega a primeira coluna que é onde estão os nomes
+                name = row[0]
 
                 if name == self.args.name:
                     ident = name
@@ -76,6 +80,9 @@ class Passwords:
                     writer.writerow(row)
 
     def find_by_key(self):
+        """Mostra apenas os dados de um serviço
+        Saída: Name: name | User: user | Password: password 
+        """
         password = self._run('Nothing registered yet')
         df = pd.read_csv(self.path_passwords)
         for _, row in df.iterrows():

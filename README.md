@@ -1,5 +1,5 @@
 # Gerenciador de senhas 
-Feito para ser o mais simples possível, como eu estava com preguiça de abrir um gerenciador de senhas gráfico, resolvi fazer esse para ser usado no terminal, meio que sigo o KISS nesse gerenciador haha.
+Feito para ser o mais simples possível, como eu estava com preguiça de abrir um gerenciador de senhas gráfico, resolvi fazer esse para ser usado no terminal, meio que sigo o KISS nesse gerenciador haha!
 ## Para configurar o gerenciador
 - Ter o Python 3.8+ instalado assim como o PIP.
 - Então rodar:
